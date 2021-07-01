@@ -94,9 +94,9 @@ public class Battleship {
         // value: ships amount
         Map<Integer, Integer> shipTypeAmountMap = new LinkedHashMap<>();
         shipTypeAmountMap.put(4, 1);
-//        shipTypeAmountMap.put(3, 2);
-//        shipTypeAmountMap.put(2, 3);
-//        shipTypeAmountMap.put(1, 4);
+        shipTypeAmountMap.put(3, 2);
+        shipTypeAmountMap.put(2, 3);
+        shipTypeAmountMap.put(1, 4);
         return shipTypeAmountMap;
     }
 }

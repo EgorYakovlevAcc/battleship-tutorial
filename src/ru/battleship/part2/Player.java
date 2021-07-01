@@ -1,17 +1,17 @@
 package ru.battleship.part2;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Player {
     private String name;
-    private List<Ship> ships;
+    private Set<Ship> ships;
     private Field playerField;
     private Field hitsField;
 
     public Player(String name) {
         this.name = name;
-        this.ships = new ArrayList<>();
+        this.ships = new HashSet<>();
         this.playerField = new Field();
         this.hitsField = new Field();
     }
@@ -32,11 +32,11 @@ public class Player {
         this.hitsField = hitsField;
     }
 
-    public List<Ship> getShips() {
+    public Set<Ship> getShips() {
         return ships;
     }
 
-    public void setShips(List<Ship> ships) {
+    public void setShips(Set<Ship> ships) {
         this.ships = ships;
     }
 
@@ -50,7 +50,7 @@ public class Player {
 
     public int getAmountOfAliveShips() {
         int counter = 0;
-        for (Ship ship: this.getShips()) {
+        for (Ship ship : this.getShips()) {
             if (ship.isAlive()) {
                 counter++;
             }
