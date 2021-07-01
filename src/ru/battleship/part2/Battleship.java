@@ -25,7 +25,7 @@ public class Battleship {
     static void playGame(Player player1, Player player2) {
         Player currentPlayer = player1;
         Player opponentPlayer = player2;
-        while (!player1.isLoser() || !player2.isLoser()) {
+        while (!player1.isLoser() && !player2.isLoser()) {
             System.out.println(currentPlayer.getHitsField().printField());
 
             System.out.println(currentPlayer.getName() + ", please, input x coord of shot");
@@ -44,17 +44,24 @@ public class Battleship {
                     System.out.println("Good short!");
                 }
             } else {
-                currentPlayer = player2;
-                opponentPlayer = player1;
+                Player tempPlayer = currentPlayer;
+                currentPlayer = opponentPlayer;
+                opponentPlayer = tempPlayer;
                 System.out.println("Bad short :(");
             }
         }
+        printCongratulation(player1, player2);
     }
 
-    static void fillPlayerField(Player player) {
+    private static void printCongratulation(Player player1, Player player2) {
+        String winnerName = player1.isLoser() ? player2.getName() : player1.getName();
+        System.out.println(winnerName + ", congratulations! You win!");
+    }
+
+    private static void fillPlayerField(Player player) {
         for (Map.Entry<Integer, Integer> shipTypeAmount : getShipTypeAmountMap().entrySet()) {
             for (int i = 0; i < shipTypeAmount.getValue(); i++) {
-                System.out.println("Расставляем " + shipTypeAmount.getKey() + "-палубный корабль. Осталось расставить: " + (shipTypeAmount.getValue() - i));
+                System.out.println(player.getName() + ", put " + shipTypeAmount.getKey() + "-decks ship. Rest: " + (shipTypeAmount.getValue() - i));
                 putShip(player, shipTypeAmount.getKey());
                 System.out.println(player.getPlayerField().printField());
             }
@@ -87,9 +94,9 @@ public class Battleship {
         // value: ships amount
         Map<Integer, Integer> shipTypeAmountMap = new LinkedHashMap<>();
         shipTypeAmountMap.put(4, 1);
-        shipTypeAmountMap.put(3, 2);
-        shipTypeAmountMap.put(2, 3);
-        shipTypeAmountMap.put(1, 4);
+//        shipTypeAmountMap.put(3, 2);
+//        shipTypeAmountMap.put(2, 3);
+//        shipTypeAmountMap.put(1, 4);
         return shipTypeAmountMap;
     }
 }
