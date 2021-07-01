@@ -1,4 +1,4 @@
-package ru.battleship;
+package ru.battleship.part2;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -44,13 +44,45 @@ public class Field {
         return Status.MISS;
     }
 
+    private boolean isAnyShipAroundCell(Cell cell) {
+        return !(isCellFree(cell.getX(), cell.getY())
+                && isCellFree(cell.getX() + 1, cell.getY() + 1)
+                && isCellFree(cell.getX() + 1, cell.getY())
+                && isCellFree(cell.getX(), cell.getY() + 1)
+                && isCellFree(cell.getX(), cell.getY() - 1)
+                && isCellFree(cell.getX() - 1, cell.getY() - 1)
+                && isCellFree(cell.getX() - 1, cell.getY() + 1)
+                && isCellFree(cell.getX() - 1, cell.getY())
+                && isCellFree(cell.getX() + 1, cell.getY() - 1));
+    }
+
+    private boolean isCellFree(int x, int y) {
+        Cell cell = this.getCellByCoords(x, y);
+        if (cell != null) {
+            return cell.getStatus().equals(Status.FREE);
+        }
+        return true;
+    }
+
+    public boolean validateShipLocation(Ship ship) {
+        for (Cell cell : ship.getDecks()) {
+            if (cell.getX() < 1 || cell.getX() > FIELD_SIZE || cell.getY() < 1 || cell.getY() > FIELD_SIZE) {
+                return false;
+            }
+        }
+        for (Cell cell : ship.getDecks()) {
+            if (isAnyShipAroundCell(cell)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public String printField() {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= FIELD_SIZE; i++) {
             for (int q = 1; q <= FIELD_SIZE; q++) {
                 Cell cell = getCellByCoords(q, i);
-                System.out.println(i + " " + q);
-                System.out.println(cell.getStatus());
                 sb.append("|");
                 sb.append(cell.getStatus().getPicture());
                 sb.append("|");

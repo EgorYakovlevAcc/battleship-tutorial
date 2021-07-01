@@ -1,18 +1,16 @@
-package ru.battleship;
+package ru.battleship.part2;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
     private String name;
-    private boolean isWinner;
     private List<Ship> ships;
     private Field playerField;
     private Field hitsField;
 
     public Player(String name) {
         this.name = name;
-        this.isWinner = false;
         this.ships = new ArrayList<>();
         this.playerField = new Field();
         this.hitsField = new Field();
@@ -50,11 +48,17 @@ public class Player {
         this.name = name;
     }
 
-    public boolean isWinner() {
-        return isWinner;
+    public int getAmountOfAliveShips() {
+        int counter = 0;
+        for (Ship ship: this.getShips()) {
+            if (ship.isAlive()) {
+                counter++;
+            }
+        }
+        return counter;
     }
 
-    public void setWinner(boolean winner) {
-        isWinner = winner;
+    public boolean isLoser() {
+        return getAmountOfAliveShips() == 0;
     }
 }

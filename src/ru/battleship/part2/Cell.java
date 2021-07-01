@@ -1,4 +1,4 @@
-package ru.battleship;
+package ru.battleship.part2;
 
 import java.util.Objects;
 
