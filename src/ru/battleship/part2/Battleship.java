@@ -69,22 +69,26 @@ public class Battleship {
     }
 
     private static void putShip(Player player, int decks) {
-        System.out.println("Input x coord: ");
-        int x = scanner.nextInt();
+        Ship ship = null;
+        boolean isValidShipLocation = false;
+        while (!isValidShipLocation) {
+            System.out.println("Input x coord: ");
+            int x = scanner.nextInt();
 
-        System.out.println("Input y coord: ");
-        int y = scanner.nextInt();
+            System.out.println("Input y coord: ");
+            int y = scanner.nextInt();
 
-        System.out.println("1 - horizontal; 2 - vertical ?");
-        int position = scanner.nextInt();
+            System.out.println("1 - horizontal; 2 - vertical ?");
+            int position = scanner.nextInt();
 
-        Ship ship = new Ship(x, y, position, decks);
-        if (player.getPlayerField().validateShipLocation(ship)) {
-            player.getShips().add(ship);
-            player.getPlayerField().addShip(ship);
-        } else {
-            System.out.println("Ship location is invalid. Please, input correct coords");
-            putShip(player, decks);
+            ship = new Ship(x, y, position, decks);
+            isValidShipLocation = player.getPlayerField().validateShipLocation(ship);
+            if (isValidShipLocation) {
+                player.getShips().add(ship);
+                player.getPlayerField().addShip(ship);
+            } else {
+                System.out.println("Ship location is invalid. Please, input correct coords");
+            }
         }
     }
 
