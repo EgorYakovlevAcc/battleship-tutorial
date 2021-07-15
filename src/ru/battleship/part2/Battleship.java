@@ -27,7 +27,7 @@ public class Battleship {
         Player opponentPlayer = player2;
         while (!player1.isLoser() && !player2.isLoser()) {
             System.out.println(currentPlayer.getHitsField().printField());
-
+            System.out.println("You have " + currentPlayer.getAmountOfAliveShips() + " alive ships and your opponent has " + opponentPlayer.getAmountOfAliveShips() + " alive ships.");
             System.out.println(currentPlayer.getName() + ", please, input x coord of shot");
             int xShot = scanner.nextInt();
             System.out.println(currentPlayer.getName() + ", please, input y coord of shot");
@@ -82,8 +82,7 @@ public class Battleship {
         if (player.getPlayerField().validateShipLocation(ship)) {
             player.getShips().add(ship);
             player.getPlayerField().addShip(ship);
-        }
-        else {
+        } else {
             System.out.println("Ship location is invalid. Please, input correct coords");
             putShip(player, decks);
         }

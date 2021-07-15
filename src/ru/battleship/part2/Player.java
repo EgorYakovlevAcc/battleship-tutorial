@@ -48,17 +48,17 @@ public class Player {
         this.name = name;
     }
 
+    public boolean isLoser() {
+        return getAmountOfAliveShips() == 0;
+    }
+
     public int getAmountOfAliveShips() {
         int counter = 0;
-        for (Ship ship : this.getShips()) {
+        for (Ship ship: this.getShips()) {
             if (ship.isAlive()) {
                 counter++;
             }
         }
         return counter;
-    }
-
-    public boolean isLoser() {
-        return getAmountOfAliveShips() == 0;
     }
 }
